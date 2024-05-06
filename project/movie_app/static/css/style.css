@@ -1,0 +1,70 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+body {
+    background-color: #14191d;
+}
+
+header{
+    background-color: #14181c;
+    border-bottom: 1px solid #445566;
+}
+.navbar-nav .nav-item a{
+    color: #00e054 !important;
+    text-transform: uppercase;
+    font-size: 16px;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    position: relative;
+}
+.navbar-nav .nav-item a::before{
+    content: '';
+    height: 2px;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    bottom: -7px;
+    display: none;
+    left: 0px;
+    right: 0px;
+}
+.navbar-nav .nav-item a:hover,.navbar-nav .nav-item a.active{
+    color: #fff !important;
+}
+.navbar-nav .nav-item a:hover::before,.navbar-nav .nav-item a.active::before{
+    display: block;
+}
+table td{
+    align-content: center;
+}
+tbody, td, tfoot, th, thead, tr,.table>:not(caption)>*>*{
+    color: #445566;
+    background-color: #191e23;
+    border-bottom:1px solid #2c3440;
+}
+
+.small_poster{
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    overflow: hidden;
+}
+
+/* Ratings widget */
+.rate {
+    display: inline-block;
+    border: 0;
+}
+.rate i{
+    font-size: 20px;
+}
+.rating_star_bg{
+    color: #73B100;
+}
+.dropdown-menu.show{
+    background-color: #191e23;
+}
+
+.dropdown-menu.show .dropdown-item{
+    background-color: black;
+}
+

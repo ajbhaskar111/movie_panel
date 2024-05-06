@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg ">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Navbar</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Genre
+                    </a>
+                    <ul class="dropdown-menu">
+                      {% for genr in genre_list %}
+                      <li> 
+                      <a href="/?genre={{genr.id}}" class="dropdown-item">
+                          {{genr}}
+                          </a>   
+                        </li>
+                    {% endfor %}
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                  </li>
+                </ul>
+                <form class="d-flex" role="search" action="{% url 'index' %}" method="get">
+                    {% csrf_token %}
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav>
+    </header>
+    <section class="show_display py-1">
+        <table class="table table-striped table-responsive">
+            <thead>
+              <tr>
+                <th scope="col">TITLE</th>
+                <th scope="col">Poster</th>
+                <th scope="col">Genre(s)</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Year Release</th>
+                <th scope="col">Metacritic Rating</th>
+                <th scope="col">Runtime</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% if data_show|length == 0 %}
+                    <tr>
+                        <td class="text-danger text-center"  colspan="12">Data Not Available</td>
+                    </tr>
+                {% else %}
+                        {% for i in data_show %}
+                        <tr>
+                        <td scope="row"><h3 class="fs-5 text-white m-0">{{i.Title}}</h3></td>
+                        <td><div class="small_poster"><img src="{{i.Poster.url}}" alt="" srcset="" class="img-fluid"></div></td>
+                        <td>{{i.Genre}}</td>
+                        <td><div class="rate">
+                            {% if i.Rating == 1 %}
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star"></i>
+                            {% elif i.Rating > 1 and i.Rating <= 1.9 %}
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star-half-empty rating_star_bg"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star"></i>
+                            {% elif i.Rating == 2 %} 
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star"></i>  
+                            {% elif i.Rating > 2 and i.Rating <= 2.9 %}  
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star-half-empty rating_star_bg"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star "></i>
+                            {% elif i.Rating == 3 %}  
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star "></i>
+                            {% elif i.Rating > 3 and i.Rating <= 3.9 %}  
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star-half-empty rating_star_bg"></i>
+                                <i class="icon-star "></i>
+                            {% elif i.Rating == 4 %} 
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star"></i>
+                            {% elif i.Rating > 4 and i.Rating <= 4.9 %} 
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star-half-empty rating_star_bg"></i>
+                            {% elif i.Rating == 5 %}  
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                                <i class="icon-star rating_star_bg"></i>
+                            {% else %} 
+                                <i class="icon-star "></i>
+                                <i class="icon-star "></i>
+                                <i class="icon-star "></i>
+                                <i class="icon-star "></i>
+                                <i class="icon-star "></i>      
+                            {% endif %}
+
+                        
+                        </div>
+                        <span class="rating_star_bg mx-1">{{i.Rating}}</span></td>
+                        <td> 
+                            {{i.Year_release}}
+                        </td> 
+                        <td> 
+                            <div class="rate">
+                                {% if i.Metacritic_rating == 1 %}
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                {% elif i.Metacritic_rating > 1 and i.Metacritic_rating <= 1.9 %}
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star-half-empty rating_star_bg"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                {% elif i.Metacritic_rating == 2 %} 
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star"></i>  
+                                {% elif i.Metacritic_rating > 2 and i.Metacritic_rating <= 2.9 %}  
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star-half-empty rating_star_bg"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star "></i>
+                                {% elif i.Metacritic_rating == 3 %}  
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star"></i>
+                                    <i class="icon-star "></i>
+                                {% elif i.Metacritic_rating > 3 and i.Metacritic_rating <= 3.9 %}  
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star-half-empty rating_star_bg"></i>
+                                    <i class="icon-star "></i>
+                                {% elif i.Metacritic_rating == 4 %} 
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star"></i>
+                                {% elif i.Metacritic_rating > 4 and i.Metacritic_rating <= 4.9 %} 
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star-half-empty rating_star_bg"></i>
+                                {% elif i.Metacritic_rating == 5 %}  
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                    <i class="icon-star rating_star_bg"></i>
+                                {% else %} 
+                                    <i class="icon-star "></i>
+                                    <i class="icon-star "></i>
+                                    <i class="icon-star "></i>
+                                    <i class="icon-star "></i>
+                                    <i class="icon-star "></i>   
+                                {%  endif %}
+
+                            
+                            </div>
+                            <span class="rating_star_bg mx-1">{{i.Metacritic_rating}}</span>
+                        </td>  
+                        <td>
+                            {{i.Runtime}}
+                        </td>   
+                    </tr>
+                    {% endfor %}
+                 {% endif    %}   
+            </tbody>
+          </table>
+    </section>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
